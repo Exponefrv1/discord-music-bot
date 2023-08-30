@@ -4,10 +4,6 @@
   "description": "Another discord bot written in discord.js + play-dl that plays music from YouTube in voice channel.",
   "main": "src/index.js",
   "scripts": {
-<<<<<<< Updated upstream
-=======
-    "test": "echo \"Error: no test specified\" && exit 1",
->>>>>>> Stashed changes
     "start": "node ./src/index.js"
   },
   "keywords": [],
