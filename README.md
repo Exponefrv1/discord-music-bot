@@ -16,5 +16,5 @@ There is no queue and songs loop for now.
 **/leave** - Leave current voice channel
 
 ## TODO
-- [x] Make a queue for playback  
+- [ ] Make a queue for playback  
 - [ ] Make a repeat command
