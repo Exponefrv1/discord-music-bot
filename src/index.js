@@ -10,6 +10,7 @@ const mysql = require('mysql2/promise');
 const bluebird = require('bluebird');
 const {
 	TOKEN,
+	HOST,
 	DB_USER,
 	DB_PASSWORD,
 	DB_NAME
@@ -17,7 +18,7 @@ const {
 
 (async () => {
 	const dbConnection = await mysql.createConnection({
-		host     : 'localhost',
+		host     : HOST,
 		user     : DB_USER,
 		password : DB_PASSWORD,
 		database : DB_NAME,

@@ -9,7 +9,7 @@ const {
 const play = require('play-dl');
 const mysql = require('mysql2/promise');
 const bluebird = require('bluebird');
-const { DB_USER, DB_PASSWORD, DB_NAME } = require('../../config.json');
+const { HOST, DB_USER, DB_PASSWORD, DB_NAME } = require('../../config.json');
 
 module.exports = {
 	cooldown: 5,
@@ -29,7 +29,7 @@ module.exports = {
 			}
 
 			const dbConnection = await mysql.createConnection({
-				host     : 'localhost',
+				host     : HOST,
 				user     : DB_USER,
 				password : DB_PASSWORD,
 				database : DB_NAME,
