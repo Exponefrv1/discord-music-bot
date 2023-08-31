@@ -1,3 +1,4 @@
 /node_modules
 /src/commands/private
 /src/deploy-private-commands.js
+/src/config.json
