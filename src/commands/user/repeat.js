@@ -23,26 +23,19 @@ module.exports = {
 			[interaction.guild.id]
 		);
 		let repeatData = rows[0]
-		if (!repeatData) {
-			await dbConnection.execute(
-				"INSERT INTO settings (guild_id, loop_queue, repeat_track) VALUES (?, ?, ?)",
-				[interaction.guild.id, 0, 1]
-			);
-		} else {
-			let newValue;
-			if (repeatData.repeat_track == 1) {
-				newValue = 0;
-				await interaction.reply("**Repeat disabled.**");
-			}
-			if (repeatData.repeat_track == 0) {
-				newValue = 1;
-				await interaction.reply("**Repeat enabled.**");
-			}
-			await dbConnection.execute(
-				"UPDATE settings SET repeat_track = ? WHERE guild_id = ?",
-				[newValue, interaction.guild.id]
-			);
+		let newValue;
+		if (repeatData.repeat_track == 1) {
+			newValue = 0;
+			await interaction.reply("**Repeat disabled.**");
 		}
+		if (repeatData.repeat_track == 0) {
+			newValue = 1;
+			await interaction.reply("**Repeat enabled.**");
+		}
+		await dbConnection.execute(
+			"UPDATE settings SET repeat_track = ? WHERE guild_id = ?",
+			[newValue, interaction.guild.id]
+		);
 		await dbConnection.close();
 	},
 };
