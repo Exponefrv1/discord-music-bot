@@ -1,6 +1,6 @@
 {
   "name": "discord_music",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Another discord bot written in discord.js + play-dl that plays music from YouTube in voice channel.",
   "main": "src/index.js",
   "scripts": {
@@ -11,9 +11,11 @@
   "license": "MIT",
   "dependencies": {
     "@discordjs/voice": "^0.16.0",
+    "bluebird": "^3.7.2",
     "discord.js": "^14.13.0",
     "ffmpeg-static": "^5.2.0",
+    "mysql2": "^3.6.0",
     "play-dl": "^1.9.6",
-    "sodium": "^3.0.2"
-  },
+    "tweetnacl": "^1.0.3"
+  }
 }

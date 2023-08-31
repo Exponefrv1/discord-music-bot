@@ -1,7 +1,39 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
-const { TOKEN } = require('./config.json');
+const {
+	Client,
+	Collection,
+	Events,
+	GatewayIntentBits
+} = require('discord.js');
+const mysql = require('mysql2/promise');
+const bluebird = require('bluebird');
+const {
+	TOKEN,
+	DB_USER,
+	DB_PASSWORD,
+	DB_NAME
+} = require('./config.json');
+
+(async () => {
+	const dbConnection = await mysql.createConnection({
+		host     : 'localhost',
+		user     : DB_USER,
+		password : DB_PASSWORD,
+		database : DB_NAME,
+		Promise: bluebird
+	});
+	await dbConnection.execute(
+		"CREATE TABLE IF NOT EXISTS playing (guild_id TEXT, queue_id INT, song TEXT)"
+	);
+	await dbConnection.execute(
+		"CREATE TABLE IF NOT EXISTS queue (guild_id TEXT, queue_id INT, song TEXT)"
+	);
+	await dbConnection.execute(
+		"CREATE TABLE IF NOT EXISTS settings (guild_id TEXT, loop_queue TINYINT, repeat_track TINYINT)"
+	);
+	await dbConnection.close();
+})();
 
 const client = new Client({
 	intents: [
@@ -39,7 +71,13 @@ for (const file of eventFiles) {
 	if (event.once) {
 		client.once(event.name, (...args) => event.execute(...args));
 	} else {
-		client.on(event.name, (...args) => event.execute(...args));
+		client.on(event.name, (...args) => {
+			try {
+				event.execute(...args);
+			} catch (error) {
+				console.error('An error during event occured:', error);
+			}
+		});
 	}
 }
 
